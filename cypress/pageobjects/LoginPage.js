@@ -2,6 +2,18 @@ import BasePage from './BasePage';
 
 class LoginPage extends BasePage {
   /** ------------------------------ Elements ------------------------------ */
+  get loginTitle() {
+    return cy.get('.login-form > h2');
+  }
+  get loginEmailInput() {
+    return cy.get('[data-qa="login-email"]');
+  }
+  get loginPasswordInput() {
+    return cy.get('[data-qa="login-password"]');
+  }
+  get loginButton() {
+    return cy.get('[data-qa="login-button"]');
+  }
   get signupNameInput() {
     return cy.get('[data-qa="signup-name"]');
   }
@@ -72,8 +84,21 @@ class LoginPage extends BasePage {
   get continueButton() {
     return cy.get('[data-qa="continue-button"]');
   }
+  // Logged in
+  get loggedUser() {
+    return cy.get('i[class*="fa-user"] + b');
+  }
 
   /** ------------------------------ Methods ------------------------------ */
+  enterLoginEmail(email) {
+    this.loginEmailInput.type(email);
+  }
+  enterLoginPassword(password) {
+    this.loginPasswordInput.type(password);
+  }
+  clickLogin() {
+    this.loginButton.click();
+  }
   enterSignupName(name) {
     this.signupNameInput.type(name);
   }
@@ -132,6 +157,9 @@ class LoginPage extends BasePage {
   }
   clickContinue() {
     this.continueButton.click();
+  }
+  getLoggedUser() {
+    return this.loggedUser.invoke('text');
   }
 }
 

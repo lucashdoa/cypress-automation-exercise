@@ -7,14 +7,14 @@ describe('template spec', () => {
   const loginPage = new LoginPage();
   const deleteAccountPage = new DeleteAccountPage();
 
-  before(() => {
+  beforeEach(() => {
     cy.visit('/');
   });
 
   it('TC1: Register User', () => {
     homePage.navigateToPage('login');
     loginPage.enterSignupName('lucas');
-    loginPage.enterSignupEmail('lucas@test.com');
+    loginPage.enterSignupEmail('lucas@testcase1.com');
     loginPage.clickSignupButton();
     loginPage.selectGender('male');
     loginPage.selectBirthDay(22);
@@ -36,5 +36,15 @@ describe('template spec', () => {
       'Account Deleted!',
     );
     deleteAccountPage.clickContinue();
+  });
+
+  it('TC2: Login User with correct email and password', () => {
+    homePage.navigateToPage('login');
+    loginPage.loginTitle.should('have.text', 'Login to your account');
+    loginPage.enterLoginEmail('lucas@testcase2.com');
+    loginPage.enterLoginPassword('p4ssw0rd');
+    loginPage.clickLogin();
+    cy.contains('Logged in as').should('exist');
+    expect(loginPage.getLoggedUser(), 'lucas');
   });
 });
