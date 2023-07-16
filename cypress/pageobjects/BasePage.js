@@ -7,7 +7,7 @@ class BasePage {
     return cy.get("a[href*='login']");
   }
   get deleteAccountLink() {
-    return cy.get("a[href*='delete account']");
+    return cy.get("a[href*='delete']");
   }
 
   // Methods
@@ -21,7 +21,7 @@ class BasePage {
   }
 
   clickDeleteAccount() {
-    this.deleteAccountLink.click();
+    this.deleteAccountLink.click({ force: true });
   }
 }
 

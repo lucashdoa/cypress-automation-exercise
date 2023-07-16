@@ -1,11 +1,17 @@
+import DeleteAccountPage from '../pageobjects/DeleteAccountPage';
 import HomePage from '../pageobjects/HomePage';
 import LoginPage from '../pageobjects/LoginPage';
 
 describe('template spec', () => {
-  it('TC1 - Register User', () => {
-    const homePage = new HomePage();
-    const loginPage = new LoginPage();
+  const homePage = new HomePage();
+  const loginPage = new LoginPage();
+  const deleteAccountPage = new DeleteAccountPage();
+
+  before(() => {
     cy.visit('/');
+  });
+
+  it('TC1: Register User', () => {
     homePage.navigateToPage('login');
     loginPage.enterSignupName('lucas');
     loginPage.enterSignupEmail('lucas@test.com');
@@ -25,5 +31,10 @@ describe('template spec', () => {
     loginPage.clickCreateAccount();
     loginPage.clickContinue();
     loginPage.clickDeleteAccount();
+    deleteAccountPage.accountDeletedText.should(
+      'have.text',
+      'Account Deleted!',
+    );
+    deleteAccountPage.clickContinue();
   });
 });
