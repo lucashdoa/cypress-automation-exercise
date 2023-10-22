@@ -20,6 +20,9 @@ class LoginPage extends BasePage {
   get signupEmailInput() {
     return cy.get('[data-qa="signup-email"]');
   }
+  get inlineValidation() {
+    return cy.get('.login-form > form > p');
+  }
   // Signup Form
   get passwordInput() {
     return cy.get('[data-qa="password"]');
@@ -157,9 +160,6 @@ class LoginPage extends BasePage {
   }
   clickContinue() {
     this.continueButton.click();
-  }
-  getLoggedUser() {
-    return this.loggedUser.invoke('text');
   }
 }
 
