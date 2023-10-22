@@ -1,6 +1,6 @@
-import DeleteAccountPage from '../pageobjects/DeleteAccountPage';
 import HomePage from '../pageobjects/HomePage';
 import LoginPage from '../pageobjects/LoginPage';
+import DeleteAccountPage from '../pageobjects/DeleteAccountPage';
 
 describe('template spec', () => {
   const homePage = new HomePage();
@@ -44,7 +44,17 @@ describe('template spec', () => {
     loginPage.enterLoginEmail('lucas@testcase2.com');
     loginPage.enterLoginPassword('p4ssw0rd');
     loginPage.clickLogin();
-    cy.contains('Logged in as').should('exist');
-    expect(loginPage.getLoggedUser(), 'lucas');
+    loginPage.loggedUser.should('have.text', 'lucas');
+  });
+
+  it('TC3: Login User with incorrect email and password', () => {
+    homePage.navigateToPage('login');
+    loginPage.enterLoginEmail('inexistentaccount@mail.com');
+    loginPage.enterLoginPassword('wrongpass');
+    loginPage.clickLogin();
+    loginPage.inlineValidation.should(
+      'have.text',
+      'Your email or password is incorrect!',
+    );
   });
 });
